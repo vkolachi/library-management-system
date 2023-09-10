@@ -1,9 +1,9 @@
-package com.example.librarymanagementsystem;
+package com.example.librarymanagementsystem.model;
 
+import com.example.librarymanagementsystem.Enum.Gender;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.Filter;
 
 
 @Setter

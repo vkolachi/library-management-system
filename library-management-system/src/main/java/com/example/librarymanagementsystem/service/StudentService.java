@@ -1,5 +1,7 @@
-package com.example.librarymanagementsystem;
+package com.example.librarymanagementsystem.service;
 
+import com.example.librarymanagementsystem.repository.StudentRepository;
+import com.example.librarymanagementsystem.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,12 +37,12 @@ public class StudentService {
 
     }
 
-    public String updateAge(int regNo, int newAge) {
-        Optional<Student> studentOptional=studentRepository.findById(regNo);
-        if(studentOptional.isPresent()){
-            studentRepository.update
-        }
-    }
+//    public String updateAge(int regNo, int newAge) {
+//        Optional<Student> studentOptional=studentRepository.findById(regNo);
+//        if(studentOptional.isPresent()){
+//            studentRepository.update
+//        }
+//    }
 
     public List<Student> getAllStudents() {
         List<Student> students=new ArrayList<>();
@@ -48,9 +50,9 @@ public class StudentService {
         return students;
     }
 
-    public List<Student> getAllMaleStudents() {
-        List<Student> students=new ArrayList<>();
-
-        return studentRepository.getAllMaleStudents();
-    }
+//    public List<Student> getAllMaleStudents() {
+//        List<Student> students=new ArrayList<>();
+//
+//        return studentRepository.getAllMaleStudents();
+//    }
 }

@@ -1,14 +1,12 @@
-package com.example.librarymanagementsystem;
+package com.example.librarymanagementsystem.controller;
 
-import org.springframework.beans.factory.annotation.Autowire;
+import com.example.librarymanagementsystem.model.Student;
+import com.example.librarymanagementsystem.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -38,20 +36,20 @@ public class StudentController {
         return response;
     }
 
-    @PostMapping("/ updateAge")
-    public String updateAge(@RequestParam("id") int regNo,@RequestParam("newAge") int newAge){
-        String response=studentService.updateAge(regNo,newAge);
-        return response;
-    }
+//    @PostMapping("/ updateAge")
+//    public String updateAge(@RequestParam("id") int regNo,@RequestParam("newAge") int newAge){
+//        String response=studentService.updateAge(regNo,newAge);
+//        return response;
+//    }
     @GetMapping("/getAll")
     public List<Student> getAllStudents(){
 
         return studentService.getAllStudents();
     }
-    @GetMapping("/male")
-    public List<Student> getAllMaleStudents(){
-        return studentService.getAllMaleStudents();
-    }
+//    @GetMapping("/male")
+//    public List<Student> getAllMaleStudents(){
+//        return studentService.getAllMaleStudents();
+//    }
 
 
     // update the age of a student  ---> regNo, age
