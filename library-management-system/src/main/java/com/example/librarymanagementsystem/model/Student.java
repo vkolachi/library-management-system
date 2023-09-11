@@ -23,7 +23,7 @@ public class Student {
     int age;
     @Column(unique = true,nullable = true)
     String email;
-
+//mk
     @Enumerated(EnumType.STRING)
     Gender gender;
 
