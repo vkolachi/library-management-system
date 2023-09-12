@@ -21,14 +21,14 @@ public class Student {
     String name;
 
     int age;
-    @Column(unique = true,nullable = true)
+    @Column(unique = true,nullable =false)
     String email;
-//mk
+    
     @Enumerated(EnumType.STRING)
     Gender gender;
 
-    @JoinColumn
-    @OneToOne
+
+    @OneToOne(mappedBy = "student",cascade = CascadeType.ALL)
     LibraryCard libraryCard;
 
 
