@@ -6,31 +6,31 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
-@Setter
-@Getter
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Author {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    String Name;
+    String name;
 
     int age;
 
-    @Column(nullable = false,unique = true)
+    @Column(unique = true,nullable = false)
     String emailId;
 
     @UpdateTimestamp
     Date lastActivity;
 
-    @JoinColumn
     @OneToMany(mappedBy = "author",cascade = CascadeType.ALL)
-    List<Book> books=new ArrayList<>();
+    List<Book> books = new ArrayList<>();
 }

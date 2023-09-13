@@ -5,21 +5,24 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
-import java.util.Date;
+import java.sql.Date;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
 public class LibraryCard {
-        @GeneratedValue(strategy = GenerationType.AUTO)
+
         @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         int id;
 
         String cardNo;
+
         @Enumerated(EnumType.STRING)
         CardStatus cardStatus;
 
@@ -29,6 +32,5 @@ public class LibraryCard {
         @OneToOne
         @JoinColumn
         Student student;
-
 
 }
