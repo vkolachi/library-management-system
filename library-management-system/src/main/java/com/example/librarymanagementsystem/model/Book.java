@@ -5,15 +5,16 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-@Getter
-@Setter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 @Entity
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Book {
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
     String title;
@@ -28,4 +29,5 @@ public class Book {
     @ManyToOne
     @JoinColumn
     Author author;
+
 }

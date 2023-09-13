@@ -1,5 +1,8 @@
 package com.example.librarymanagementsystem.service;
 
+import com.example.librarymanagementsystem.Enum.CardStatus;
+import com.example.librarymanagementsystem.Enum.Gender;
+import com.example.librarymanagementsystem.model.LibraryCard;
 import com.example.librarymanagementsystem.repository.StudentRepository;
 import com.example.librarymanagementsystem.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,52 +11,84 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class StudentService {
+
     @Autowired
     StudentRepository studentRepository;
-    public Student addStudent(Student student) {
-        Student savedStudent=studentRepository.save(student);
-        return savedStudent;
+
+    public String addStudent(Student student) {
+        LibraryCard libraryCard = new LibraryCard();
+        libraryCard.setCardNo(String.valueOf(UUID.randomUUID()));
+        libraryCard.setCardStatus(CardStatus.ACTIVE);
+        libraryCard.setStudent(student);
+
+        student.setLibraryCard(libraryCard);  // set librarycard for student
+        Student savedStudent = studentRepository.save(student); // save both student and library card
+        return "Student saved successfully";
     }
 
     public Student getStudent(int regNo) {
-        Optional<Student> studentOptional=studentRepository.findById(regNo);
+
+        Optional<Student> studentOptional = studentRepository.findById(regNo);
         if(studentOptional.isPresent()){
             return studentOptional.get();
         }
         return null;
     }
 
+    public List<String> getAllMales() {
+
+        List<String> names = new ArrayList<>();
+        List<Student> students = studentRepository.findByGender(Gender.MALE);
+        for(Student s: students){
+
+            names.add(s.getName());}
+        return names;
+    }
+
+
+    public List<String> getAllMales1() {
+
+        List<String> names = new ArrayList<>();
+        List<Student> students = studentRepository.findAll();
+        for(Student s: students){
+            if(s.getGender().equals(Gender.MALE)){
+                names.add(s.getName());}
+        }
+
+        return names;
+    }
+
     public String deleteStudent(int regNo) {
-        Optional<Student> studentOptional=studentRepository.findById(regNo);
-        if(studentOptional.isPresent()){
+        if(studentRepository.findById(regNo).isPresent()){
             studentRepository.deleteById(regNo);
             return "deleted successfully";
         }
-        return "invalid regNo";
-
-
+        else{
+            return "invalid regNo";
+        }
     }
 
+    public String updateAge(int id, int newAge) {
+        if(studentRepository.findById(id).isPresent()){
 
-//    public String updateAge(int regNo, int newAge) {
-//        Optional<Student> studentOptional=studentRepository.findById(regNo);
-//        if(studentOptional.isPresent()){
-//            studentRepository.update
-//        }
-//    }
+            Student student1= studentRepository.findById(id).get();
+            student1.setAge(newAge);
+            studentRepository.save(student1);
 
-    public List<Student> getAllStudents() {
-        List<Student> students=new ArrayList<>();
-        studentRepository.findAll().forEach(student -> students.add(student));
-        return students;
+            return "updated successfully";
+
+        }
+        return "invalid id";
     }
 
-//    public List<Student> getAllMaleStudents() {
-//        List<Student> students=new ArrayList<>();
-//
-//        return studentRepository.getAllMaleStudents();
-//    }
+    public List<Student> getAll() {
+        List<Student> all=new ArrayList<>();
+        List<Student> allStud=studentRepository.findAll();
+        all.addAll(allStud);
+        return  all;
+    }
 }
