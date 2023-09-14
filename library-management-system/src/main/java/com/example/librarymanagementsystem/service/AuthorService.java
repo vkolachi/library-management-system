@@ -1,20 +1,18 @@
 package com.example.librarymanagementsystem.service;
 
 import com.example.librarymanagementsystem.model.Author;
-<<<<<<< HEAD
+
 import com.example.librarymanagementsystem.model.Book;
-=======
->>>>>>> origin/main
+
 import com.example.librarymanagementsystem.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
+
 import java.util.ArrayList;
 import java.util.List;
 
-=======
->>>>>>> origin/main
+
 @Service
 public class AuthorService {
 
@@ -25,7 +23,7 @@ public class AuthorService {
         Author savedAuthor=authorRepository.save(author);
         return "author saved successfully";
     }
-<<<<<<< HEAD
+
 
     public String updateEmail(int id, String newEmail) {
         if(authorRepository.findById(id).isPresent()){
@@ -55,7 +53,5 @@ public class AuthorService {
             }
         }
         return names;
-    }
-=======
->>>>>>> origin/main
-}
+    }}
+
