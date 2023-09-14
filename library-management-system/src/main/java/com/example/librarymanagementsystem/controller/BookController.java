@@ -1,5 +1,7 @@
 package com.example.librarymanagementsystem.controller;
 
+import com.example.librarymanagementsystem.DTO.requestDTO.BookRequest;
+import com.example.librarymanagementsystem.DTO.responseDTO.BookResponse;
 import com.example.librarymanagementsystemsept.exception.AuthorNotFoundException;
 import com.example.librarymanagementsystem.model.Book;
 import com.example.librarymanagementsystem.service.BookService;
@@ -14,14 +16,14 @@ public class BookController {
     BookService bookService;
 
     @PostMapping("/add")
-    public String addBook(@RequestBody Book book){
+    public BookResponse addBook(@RequestBody BookRequest bookRequest){
 
         try{
-            String response = bookService.addBook(book);
-            return response;
+            BookResponse bookResponse = bookService.addBook(bookRequest);
+            return bookResponse;
         }
         catch (Exception e){
-            return e.getMessage();
+            return new BookResponse();
         }
     }
 

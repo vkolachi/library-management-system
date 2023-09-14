@@ -1,5 +1,8 @@
 package com.example.librarymanagementsystem.controller;
 
+import com.example.librarymanagementsystem.DTO.requestDTO.AuthorRequest;
+import com.example.librarymanagementsystem.DTO.responseDTO.AuthorResponse;
+import com.example.librarymanagementsystem.DTO.responseDTO.StudentResponse;
 import com.example.librarymanagementsystem.model.Author;
 import com.example.librarymanagementsystem.model.Book;
 import com.example.librarymanagementsystem.service.AuthorService;
@@ -18,9 +21,9 @@ public class AuthorController {
     AuthorService authorService;
 
     @PostMapping("/add")
-    public ResponseEntity addAuthor(@RequestBody Author author){
-        String response = authorService.addAuthor(author);
-        return new ResponseEntity(response, HttpStatus.CREATED);
+    public AuthorResponse addAuthor(@RequestBody AuthorRequest authorRequest){
+       AuthorResponse authorResponse = authorService.addAuthor(authorRequest);
+        return authorResponse;
     }
     // update the email id of an author  -->> observer lastActivity column
     @PutMapping("/updateEmail")

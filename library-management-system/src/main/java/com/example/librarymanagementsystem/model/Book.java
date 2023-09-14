@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,8 +29,13 @@ public class Book {
 
     double cost;
 
+    boolean issued;
+
     @ManyToOne
     @JoinColumn
     Author author;
+
+    @OneToMany(mappedBy = "book",cascade =CascadeType.ALL)
+    List<Transaction> transactions=new ArrayList<>();
 
 }

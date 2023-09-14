@@ -1,5 +1,7 @@
 package com.example.librarymanagementsystem.service;
 
+import com.example.librarymanagementsystem.DTO.requestDTO.AuthorRequest;
+import com.example.librarymanagementsystem.DTO.responseDTO.AuthorResponse;
 import com.example.librarymanagementsystem.model.Author;
 
 import com.example.librarymanagementsystem.model.Book;
@@ -19,9 +21,20 @@ public class AuthorService {
     @Autowired
     AuthorRepository authorRepository;
 
-    public String addAuthor( Author author){
+    public AuthorResponse addAuthor(AuthorRequest authorRequest){
+        Author author=new Author();
+        author.setName(authorRequest.getName());
+        author.setAge(authorRequest.getAge());
+        author.setEmailId(authorRequest.getEmailId());
+
         Author savedAuthor=authorRepository.save(author);
-        return "author saved successfully";
+
+        AuthorResponse authorResponse=new AuthorResponse();
+        authorResponse.setName(author.getName());
+        authorResponse.setEmailId(author.getEmailId());
+        authorResponse.setLastActivity(author.getLastActivity());
+        authorResponse.setMessage("author saved successfully");
+        return authorResponse;
     }
 
 
