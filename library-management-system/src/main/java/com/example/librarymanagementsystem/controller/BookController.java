@@ -2,11 +2,14 @@ package com.example.librarymanagementsystem.controller;
 
 import com.example.librarymanagementsystem.DTO.requestDTO.BookRequest;
 import com.example.librarymanagementsystem.DTO.responseDTO.BookResponse;
+import com.example.librarymanagementsystem.Enum.Genre;
 import com.example.librarymanagementsystemsept.exception.AuthorNotFoundException;
 import com.example.librarymanagementsystem.model.Book;
 import com.example.librarymanagementsystem.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/book")
@@ -25,6 +28,17 @@ public class BookController {
         catch (Exception e){
             return new BookResponse();
         }
+    }
+
+    @GetMapping("/getBooksByGenreAndCostGreaterThanSQL")
+    public List<BookResponse> getBooksByGenreAndCostGreaterThanSQL(@RequestParam("genre")String genre,@RequestParam("cost") double cost){
+        return bookService.getBooksByGenreAndCostGreaterThanSQL(genre,cost);
+    }
+
+
+    @GetMapping("/getBooksByGenreAndCostGreaterThanHQL")
+    public List<BookResponse> getBooksByGenreAndCostGreaterThanHQl(@RequestParam("genre")Genre genre,@RequestParam("cost") double cost){
+        return bookService.getBooksByGenreAndCostGreaterThanHQL(genre,cost);
     }
 
 //

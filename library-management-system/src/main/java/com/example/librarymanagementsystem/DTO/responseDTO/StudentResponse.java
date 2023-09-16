@@ -15,7 +15,7 @@ public class StudentResponse {
     String email;
 
     String message;
-
-    String newlibrarycard;
+        //nested
+    LibraryCardResponse libraryCardResponse;
 
 }

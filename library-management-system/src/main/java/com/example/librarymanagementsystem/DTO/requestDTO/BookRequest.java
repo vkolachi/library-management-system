@@ -20,5 +20,5 @@ public class BookRequest {
 
     Double cost;
 
-    String authorName;
+    Author author;
 }
