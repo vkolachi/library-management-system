@@ -14,6 +14,7 @@ import java.sql.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class LibraryCardResponse {
 
     String cardNo;

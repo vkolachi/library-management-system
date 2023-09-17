@@ -11,6 +11,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Getter
 @Entity
+@Builder
 @Table(name = "student_info")
 public class Student {
 

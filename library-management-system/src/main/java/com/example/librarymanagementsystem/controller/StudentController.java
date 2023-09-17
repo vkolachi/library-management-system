@@ -2,7 +2,7 @@ package com.example.librarymanagementsystem.controller;
 
 import com.example.librarymanagementsystem.DTO.requestDTO.StudentRequest;
 import com.example.librarymanagementsystem.DTO.responseDTO.StudentResponse;
-import com.example.librarymanagementsystem.service.StudentService;
+import com.example.librarymanagementsystem.service.Impl.StudentServiceImpl;
 import com.example.librarymanagementsystem.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,17 +16,17 @@ import java.util.List;
 public class StudentController {
 
     @Autowired
-    StudentService studentService;
+    StudentServiceImpl studentServiceImpl;
 
     @PostMapping("/add")
     public StudentResponse addStudent(@RequestBody StudentRequest studentRequest){
-      StudentResponse studentResponse= studentService.addStudent(studentRequest);
+      StudentResponse studentResponse= studentServiceImpl.addStudent(studentRequest);
         return  studentResponse;
     }
 
     @GetMapping("/get")
     public ResponseEntity getStudent(@RequestParam("id") int regNo){
-        Student student = studentService.getStudent(regNo);
+        Student student = studentServiceImpl.getStudent(regNo);
         if(student!=null){
             return new ResponseEntity(student,HttpStatus.FOUND);
         }
@@ -36,28 +36,28 @@ public class StudentController {
     // delete a student --> regNo
     @DeleteMapping("/delete")
     public String deleteStudent(@RequestParam("id") int regNo){
-        return studentService.deleteStudent(regNo);
+        return studentServiceImpl.deleteStudent(regNo);
 
     }
 
     // update the age of a student  ---> regNo, age
     @PutMapping("/updateAge")
     public String updateAge(@RequestParam("id") int id,@RequestParam("newAge") int newAge){
-        return studentService.updateAge(id,newAge);
+        return studentServiceImpl.updateAge(id,newAge);
     }
 
     // get all the students in the db  --> findAll()
     @GetMapping("/getAll")
     public List<Student> getAll(){
 
-        return studentService.getAll();
+        return studentServiceImpl.getAll();
     }
 
     // get list of all male students
 
     @GetMapping("/get-males")
     public List<String> getAllMales(){
-        List<String> males = studentService.getAllMales();
+        List<String> males = studentServiceImpl.getAllMales();
         return males;
     }
 }

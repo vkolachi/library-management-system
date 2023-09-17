@@ -18,6 +18,7 @@ import java.util.Date;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +28,7 @@ public class Transaction {
 
     @CreationTimestamp
     Date transactionTime;
-
+    @Enumerated(EnumType.STRING)
     TransactionStatus transactionStatus;
 
     @ManyToOne
