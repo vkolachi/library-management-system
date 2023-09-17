@@ -1,16 +1,19 @@
-package com.example.librarymanagementsystem.service;
+package com.example.librarymanagementsystem.service.Impl;
 
 import com.example.librarymanagementsystem.DTO.responseDTO.IssueBookResponse;
 import com.example.librarymanagementsystem.Enum.TransactionStatus;
 import com.example.librarymanagementsystem.exception.BookAlreadyIssuedException;
 import com.example.librarymanagementsystem.exception.BookNotFoundException;
 import com.example.librarymanagementsystem.exception.StudentNotFoundException;
+import com.example.librarymanagementsystem.exception.transactionNotFoundException;
 import com.example.librarymanagementsystem.model.Book;
+import com.example.librarymanagementsystem.model.LibraryCard;
 import com.example.librarymanagementsystem.model.Student;
 import com.example.librarymanagementsystem.model.Transaction;
 import com.example.librarymanagementsystem.repository.BookRepository;
 import com.example.librarymanagementsystem.repository.StudentRepository;
 import com.example.librarymanagementsystem.repository.TransactionRepository;
+import com.example.librarymanagementsystem.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +29,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     BookRepository bookRepository;
     public  IssueBookResponse issueBook(int bookId, int studentId) {
+
         Optional<Student> studentOptional=studentRepository.findById(studentId);
         if(studentOptional.isEmpty()){
             throw new StudentNotFoundException("student doest exists");
@@ -69,4 +73,43 @@ public class TransactionServiceImpl implements TransactionService {
                 .authorName(savedBook.getAuthor().getName())
                 .build();
     }
+
+    public String withDraw(int bookId,int transactionId){
+        Optional<Book> bookOptional=bookRepository.findById(bookId);
+        if(bookOptional.isEmpty()){
+            throw new BookNotFoundException("book doesnt exists");
+        }
+        Book book=bookOptional.get();
+        if(!book.isIssued()){
+            throw new BookAlreadyIssuedException("book is not issued to anyone");
+        }
+        Optional<Transaction> transactionOptional=transactionRepository.findById(transactionId);
+        if(transactionOptional.isEmpty()){
+            throw new transactionNotFoundException("invalid transaction id");
+
+        }
+        //withdraw
+
+        //delete trasaction
+        Transaction transaction= Transaction.builder()
+                .transactionNumber(String.valueOf(UUID.randomUUID()))
+                .transactionStatus(TransactionStatus.SUCCESS)
+                .book(book)
+                .libraryCard(transactionOptional.get().getLibraryCard())
+                .build();
+        Transaction savedTransaction=transactionRepository.save(transaction);
+        //dont issue book
+        book.setIssued(false);
+        book.getTransactions().add(transaction);
+        transaction.getLibraryCard().getTransactions().add(transaction);
+        Book savedBook= bookRepository.save(book); //book and transaction
+        return "trasaction successful";
+
+
+
+
+    }
+
+
+
 }

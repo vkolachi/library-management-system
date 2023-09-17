@@ -4,4 +4,6 @@ import com.example.librarymanagementsystem.DTO.responseDTO.IssueBookResponse;
 
 public interface TransactionService {
     IssueBookResponse issueBook(int bookId, int studentId);
+
+    String withDraw(int bookId,int transactionId);
 }
