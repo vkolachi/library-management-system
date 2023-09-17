@@ -9,6 +9,7 @@ import com.example.librarymanagementsystem.model.LibraryCard;
 import com.example.librarymanagementsystem.repository.StudentRepository;
 import com.example.librarymanagementsystem.model.Student;
 import com.example.librarymanagementsystem.service.StudentService;
+import com.example.librarymanagementsystem.transformer.StudentTransfromer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.example.librarymanagementsystem.transformer.StudentTransfromer.StudentRequestToStudent;
+
 @Service
 public class StudentServiceImpl implements StudentService {
 
@@ -24,11 +27,7 @@ public class StudentServiceImpl implements StudentService {
     StudentRepository studentRepository;
 
     public StudentResponse addStudent(StudentRequest studentRequest) {
-        Student student=new Student();
-        student.setName(studentRequest.getName());
-        student.setAge(studentRequest.getAge());
-        student.setEmail(studentRequest.getEmail());
-        student.setGender(studentRequest.getGender());
+        Student student= StudentTransfromer.StudentRequestToStudent(studentRequest);
 
         LibraryCard libraryCard = new LibraryCard();
         libraryCard.setCardNo(String.valueOf(UUID.randomUUID()));
@@ -38,20 +37,12 @@ public class StudentServiceImpl implements StudentService {
         student.setLibraryCard(libraryCard);  // set librarycard for student
 
         Student savedStudent = studentRepository.save(student); // save both student and library card
-        StudentResponse studentResponse=new StudentResponse();
-        studentResponse.setName(student.getName());
-        studentResponse.setEmail(student.getEmail());
-        studentResponse.setMessage("saved successfully!!");
 
-//        studentResponse.setNewlibrarycard(savedStudent.getLibraryCard().getCardNo());
+        return StudentTransfromer.StudentToStudentResponse(student);
 
-        LibraryCardResponse libraryCardResponse=new LibraryCardResponse();
-        libraryCardResponse.setCardNo(savedStudent.getLibraryCard().getCardNo());
-        libraryCardResponse.setIssueDate(savedStudent.getLibraryCard().getIssueDate());
-        libraryCardResponse.setCardStatus(savedStudent.getLibraryCard().getCardStatus());
-        studentResponse.setLibraryCardResponse(libraryCardResponse);
-        return studentResponse;
     }
+
+
 
     public Student getStudent(int regNo) {
 

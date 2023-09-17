@@ -2,10 +2,12 @@ package com.example.librarymanagementsystem.service.Impl;
 
 import com.example.librarymanagementsystem.DTO.requestDTO.AuthorRequest;
 import com.example.librarymanagementsystem.DTO.responseDTO.AuthorResponse;
+import com.example.librarymanagementsystem.DTO.responseDTO.StudentResponse;
 import com.example.librarymanagementsystem.model.Author;
 
 import com.example.librarymanagementsystem.model.Book;
 
+import com.example.librarymanagementsystem.model.Student;
 import com.example.librarymanagementsystem.repository.AuthorRepository;
 import com.example.librarymanagementsystem.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +36,11 @@ public class AuthorServiceImpl implements AuthorService {
         authorResponse.setName(author.getName());
         authorResponse.setEmailId(author.getEmailId());
         authorResponse.setLastActivity(author.getLastActivity());
-        authorResponse.setMessage("author saved successfully");
+
         return authorResponse;
+
     }
+
 
 
     public String updateEmail(int id, String newEmail) {
