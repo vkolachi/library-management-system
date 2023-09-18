@@ -8,6 +8,7 @@ import com.example.librarymanagementsystem.model.Book;
 import com.example.librarymanagementsystem.repository.AuthorRepository;
 import com.example.librarymanagementsystem.repository.BookRepository;
 import com.example.librarymanagementsystem.service.BookService;
+import com.example.librarymanagementsystem.transformer.BookTransformer;
 import com.example.librarymanagementsystemsept.exception.AuthorNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,12 +26,7 @@ public class BookServiceimpl implements BookService {
     BookRepository bookRepository;
 
     public BookResponse addBook(BookRequest bookRequest) {
-        Book book=new Book();
-        book.setTitle(bookRequest.getTitle());
-        book.setNoOfPages(bookRequest.getNoOfPages());
-        book.setGenre(bookRequest.getGenre());
-        book.setCost(bookRequest.getCost());
-        book.setAuthor(bookRequest.getAuthor());
+        Book book= BookTransformer.bookRequestTobook(bookRequest);
 
         // check if author exists or not
         Optional<Author> authorOptional = authorRepository.findById(book.getAuthor().getId());
@@ -44,13 +40,9 @@ public class BookServiceimpl implements BookService {
 
         authorRepository.save(author);  // save both author and book
 
-        BookResponse bookResponse=new BookResponse();
-        bookResponse.setTitle(book.getTitle());
-        bookResponse.setNoOfPages(book.getNoOfPages());
-        bookResponse.setCost(book.getCost());
-        bookResponse.setAuthorName(book.getAuthor().getName());
-        bookResponse.setMessage("successfulll!!");
-        return bookResponse;
+
+
+        return BookTransformer.bookToBookResponse(book);
 
     }
 
@@ -60,14 +52,8 @@ public class BookServiceimpl implements BookService {
 
         List<BookResponse> responses=new ArrayList<>();
         for(Book book:books){
-//            BookResponse bookResponse=new BookResponse(book.getTitle(),book.getNoOfPages(),book.getCost(),book.getAuthor().getName(),"bookksssss!!!");
-            //or
-            BookResponse bookResponse=new BookResponse();
-            bookResponse.setTitle(book.getTitle());
-            bookResponse.setNoOfPages(book.getNoOfPages());
-            bookResponse.setCost(book.getCost());
-            bookResponse.setAuthorName(book.getAuthor().getName());
-            bookResponse.setMessage("woowo");
+           BookResponse bookResponse= BookTransformer.bookToBookResponse(book);
+
             responses.add(bookResponse);
         }
         return responses;
@@ -78,14 +64,8 @@ public class BookServiceimpl implements BookService {
 
         List<BookResponse> responses=new ArrayList<>();
         for(Book book:books){
-//            BookResponse bookResponse=new BookResponse(book.getTitle(),book.getNoOfPages(),book.getCost(),book.getAuthor().getName(),"bookksssss!!!");
-            //or
-            BookResponse bookResponse=new BookResponse();
-            bookResponse.setTitle(book.getTitle());
-            bookResponse.setNoOfPages(book.getNoOfPages());
-            bookResponse.setCost(book.getCost());
-            bookResponse.setAuthorName(book.getAuthor().getName());
-            bookResponse.setMessage("woowo");
+             BookResponse bookResponse= BookTransformer.bookToBookResponse(book);
+
             responses.add(bookResponse);
         }
         return responses;

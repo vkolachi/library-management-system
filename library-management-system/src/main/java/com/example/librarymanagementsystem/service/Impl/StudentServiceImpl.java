@@ -1,7 +1,6 @@
 package com.example.librarymanagementsystem.service.Impl;
 
 import com.example.librarymanagementsystem.DTO.requestDTO.StudentRequest;
-import com.example.librarymanagementsystem.DTO.responseDTO.LibraryCardResponse;
 import com.example.librarymanagementsystem.DTO.responseDTO.StudentResponse;
 import com.example.librarymanagementsystem.Enum.CardStatus;
 import com.example.librarymanagementsystem.Enum.Gender;
@@ -9,7 +8,7 @@ import com.example.librarymanagementsystem.model.LibraryCard;
 import com.example.librarymanagementsystem.repository.StudentRepository;
 import com.example.librarymanagementsystem.model.Student;
 import com.example.librarymanagementsystem.service.StudentService;
-import com.example.librarymanagementsystem.transformer.StudentTransfromer;
+import com.example.librarymanagementsystem.transformer.StudentTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +17,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.example.librarymanagementsystem.transformer.StudentTransfromer.StudentRequestToStudent;
-
 @Service
 public class StudentServiceImpl implements StudentService {
 
@@ -27,7 +24,7 @@ public class StudentServiceImpl implements StudentService {
     StudentRepository studentRepository;
 
     public StudentResponse addStudent(StudentRequest studentRequest) {
-        Student student= StudentTransfromer.StudentRequestToStudent(studentRequest);
+        Student student= StudentTransformer.StudentRequestToStudent(studentRequest);
 
         LibraryCard libraryCard = new LibraryCard();
         libraryCard.setCardNo(String.valueOf(UUID.randomUUID()));
@@ -38,7 +35,7 @@ public class StudentServiceImpl implements StudentService {
 
         Student savedStudent = studentRepository.save(student); // save both student and library card
 
-        return StudentTransfromer.StudentToStudentResponse(student);
+        return StudentTransformer.StudentToStudentResponse(student);
 
     }
 

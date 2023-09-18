@@ -10,6 +10,7 @@ import com.example.librarymanagementsystem.model.Book;
 import com.example.librarymanagementsystem.model.Student;
 import com.example.librarymanagementsystem.repository.AuthorRepository;
 import com.example.librarymanagementsystem.service.AuthorService;
+import com.example.librarymanagementsystem.transformer.AuthorTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,19 +26,11 @@ public class AuthorServiceImpl implements AuthorService {
     AuthorRepository authorRepository;
 
     public AuthorResponse addAuthor(AuthorRequest authorRequest){
-        Author author=new Author();
-        author.setName(authorRequest.getName());
-        author.setAge(authorRequest.getAge());
-        author.setEmailId(authorRequest.getEmailId());
+        Author author= AuthorTransformer.authorRequestToAuthor(authorRequest);
 
         Author savedAuthor=authorRepository.save(author);
 
-        AuthorResponse authorResponse=new AuthorResponse();
-        authorResponse.setName(author.getName());
-        authorResponse.setEmailId(author.getEmailId());
-        authorResponse.setLastActivity(author.getLastActivity());
-
-        return authorResponse;
+        return AuthorTransformer.authorToAuthorResponse(author);
 
     }
 

@@ -4,7 +4,7 @@ import com.example.librarymanagementsystem.DTO.requestDTO.StudentRequest;
 import com.example.librarymanagementsystem.DTO.responseDTO.StudentResponse;
 import com.example.librarymanagementsystem.model.Student;
 
-public class StudentTransfromer {
+public class StudentTransformer {
     public static Student StudentRequestToStudent(StudentRequest studentRequest){
         return Student.builder()
                 .name(studentRequest.getName())

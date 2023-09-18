@@ -18,6 +18,4 @@ public class BookResponse {
     double cost;
 
     String authorName;
-
-    String message;
 }
