@@ -10,7 +10,7 @@ public interface StudentService {
 
     StudentResponse addStudent(StudentRequest studentRequest);
 
-    Student getStudent(int regNo);
+    StudentResponse getStudent(int regNo);
 
     List<String> getAllMales();
 
