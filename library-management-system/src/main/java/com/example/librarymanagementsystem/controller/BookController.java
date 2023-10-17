@@ -53,9 +53,13 @@ public class BookController {
         return bookService.inGenre(genre);
     }
 
-    // give me names of all the books of a particular genre and cost gretaer than 500 rs
+
 
     // give me all the books having number of pages between 'a' and 'b'
+    @GetMapping("/noOfPages")
+    public List<String> noOfPages(@RequestParam("no") int no,@RequestParam("no1") int no1){
+        return bookService.noOfPages(no,no1);
+    }
 
     // give me the names of all the authors who write a particular genre
     @GetMapping("perticular-genre")

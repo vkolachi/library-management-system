@@ -98,4 +98,15 @@ public class BookServiceimpl implements BookService {
         }
         return authors;
     }
+
+    public List<String> noOfPages(int no, int no1){
+        List<String> books=new ArrayList<>();
+        List<Book> bookList=bookRepository.findAll();
+        for(Book b:bookList){
+            if(b.getNoOfPages()>no && b.getNoOfPages()<no1){
+                books.add(b.getTitle());
+            }
+        }
+        return books;
+    }
 }

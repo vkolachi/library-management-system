@@ -20,4 +20,5 @@ public interface BookService {
     List<String> perticularGenre(Genre genre);
 
 
+    List<String> noOfPages(int no, int no1);
 }
